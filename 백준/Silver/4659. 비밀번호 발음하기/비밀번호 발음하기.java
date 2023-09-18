@@ -12,33 +12,31 @@ public class Main {
                 break;
             } else {
                 boolean notAccept = false;
-                // a, e, i, o, u 포함 여부
+                // a, e, i, o, u 포함 여 확인
                 if (str.contains("a") || str.contains("e") || str.contains("i") || str.contains("o")
                         || str.contains("u")) {
                     char[] charArray = str.toCharArray();
+
+                    // 3개 연속 여부 확인
                     for (int j = 2; j < charArray.length; j++) {
-                        if (charArray[j - 2] == 'a' || charArray[j - 2] == 'e' || charArray[j - 2] == 'i'
-                                || charArray[j - 2] == 'o' || charArray[j - 2] == 'u') {
-                            if (charArray[j - 1] == 'a' || charArray[j - 1] == 'e' || charArray[j - 1] == 'i'
-                                    || charArray[j - 1] == 'o' || charArray[j - 1] == 'u') {
-                                if (charArray[j] == 'a' || charArray[j] == 'e' || charArray[j] == 'i'
-                                        || charArray[j] == 'o'
-                                        || charArray[j] == 'u') {
+                        if (isVowel(charArray[j - 2])) {
+                            if (isVowel(charArray[j - 1])) {
+                                if (isVowel(charArray[j])) {
                                     notAccept = true;
                                     break;
                                 }
                             }
                         } else {
-                            if (charArray[j - 1] != 'a' && charArray[j - 1] != 'e' && charArray[j - 1] != 'i'
-                                    && charArray[j - 1] != 'o' && charArray[j - 1] != 'u') {
-                                if (charArray[j] != 'a' && charArray[j] != 'e' && charArray[j] != 'i'
-                                        && charArray[j] != 'o' && charArray[j] != 'u') {
+                            if (!isVowel(charArray[j - 1])) {
+                                if (!isVowel(charArray[j])) {
                                     notAccept = true;
                                     break;
                                 }
                             }
                         }
                     }
+
+                    // 글자 연속 두 번 확인(ee, oo 허용)
                     for (int j = 1; j < charArray.length; j++) {
                         if (charArray[j - 1] == charArray[j]) {
                             if (!(charArray[j] == 'e' || charArray[j] == 'o')) {
@@ -59,5 +57,11 @@ public class Main {
         }
 
         System.out.println(stringBuilder);
+    }
+
+    // 모음 확인
+    public static boolean isVowel(char ch) {
+        return ch == 'a' || ch == 'e' || ch == 'i'
+                || ch == 'o' || ch == 'u';
     }
 }

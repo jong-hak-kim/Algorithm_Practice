@@ -1,9 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -13,70 +10,32 @@ public class Main {
         int N = Integer.parseInt(stringTokenizer.nextToken());
         int newScore = Integer.parseInt(stringTokenizer.nextToken());
         int P = Integer.parseInt(stringTokenizer.nextToken());
-        List<Integer> list = new ArrayList<>();
-        int[] array = new int[P];
-        array[0] = 1;
-
-        // N이 0보다 크면 둘째 줄 받기
-        // 그 외에 경우에는 1 출력
+        int[] arr = new int[N];
         if (N > 0) {
             stringTokenizer = new StringTokenizer(bufferedReader.readLine());
             for (int i = 0; i < N; i++) {
-                list.add(Integer.parseInt(stringTokenizer.nextToken()));
+                arr[i] = Integer.parseInt(stringTokenizer.nextToken());
             }
+        }
 
-            Collections.sort(list);
-            Collections.reverse(list);
-
-            // * 리스트의 개수가 P보다 작을 경우
-            // => 리스트에 새로운 수 추가 후 내림차순 정렬
-
-            // * 리스트의 개수가 P와 같을 경우
-            // => 새로운 수가 리스트의 마지막 수보다 작거나 같을 경우
-            // => 랭킹에 못들어가므로 -1 출력
-            // => 위 경우를 제외하면 리스트에 새로운 수 추가 후 내림차순 정렬
-
-            // * 정렬 후 리스트 크기가 P보다 큰 경우
-            // => 랭킹 최대 등록 수를 넘어선 것이므로 맨 뒷 수 삭제
-
-            if (list.size() < P) {
-                orderList(list, array, newScore, P);
-            } else if (list.size() == P) {
-                if (list.size() == P && newScore <= list.get((list.size() - 1))) {
-                    System.out.println(-1);
-                } else {
-                    orderList(list, array, newScore, P);
-                }
-            } else {
-                System.out.println(-1);
-            }
-
+        // 결과는 등수만 구하기!! 라는 것을 기억해야 한다.
+        // 랭킹에 들어갈 수 없는 경우를 위쪽 조건에 걸고 else문에는 들어갈 수 있는 경우를 적는다.
+        // 
+        // 애초에 배열의 크기를 N 만큼만 줬기 때문에 새 점수보다 배열의 값이 더 크면 순위를 증가시키고
+        // 
+        // 그 외에 경우에는 반복문을 빠져나오면 그 점수의 등수가 구해지게 된다.
+        if (N == P && newScore <= arr[arr.length - 1]) {
+            System.out.println(-1);
         } else {
-            System.out.println(1);
-        }
-    }
-
-    public static void orderList(List<Integer> list, int[] array, int newScore, int P) {
-        list.add(newScore);
-        Collections.sort(list);
-        Collections.reverse(list);
-
-        if (list.size() > P) {
-            list.remove(list.size() - 1);
-        }
-
-        for (int i = 1; i < list.size(); i++) {
-            if (list.get(i) == list.get(i - 1)) {
-                array[i] = array[i - 1];
-            } else {
-                array[i] = i + 1;
+            int rank = 1;
+            for (int i = 0; i < arr.length; i++) {
+                if (newScore < arr[i]) {
+                    rank++;
+                } else {
+                    break;
+                }
             }
-        }
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i) == newScore) {
-                System.out.println(array[i]);
-                break;
-            }
+            System.out.println(rank);
         }
     }
 }

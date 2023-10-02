@@ -7,41 +7,31 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(bufferedReader.readLine());
-        int[] roadLength = new int[N - 1];
-        int[] city = new int[N];
+        long[] roadLength = new long[N - 1];
+        long[] city = new long[N - 1];
         StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-        int sum = 0;
-        int min = 0;
+        long sum = 0;
 
-        //도로 길이 배열 등록
-        for (int i = 0; i < roadLength.length; i++) {
-            roadLength[i] = Integer.parseInt(stringTokenizer.nextToken());
+        for (int i = 0; i < N - 1; i++) {
+            roadLength[i] = Long.parseLong(stringTokenizer.nextToken());
         }
-
         stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-
-        //도시 리터당 가격 배열 등록, 최소 가격인 도시 구하기
-        for (int i = 0; i < city.length; i++) {
-            int num = Integer.parseInt(stringTokenizer.nextToken());
-            city[i] = num;
-            if (i == 0) {
-                min = num;
-            } else if (num < min && i != city.length - 1) {
-                min = num;
+        for (int i = 0; i < N - 1; i++) {
+            city[i] = Long.parseLong(stringTokenizer.nextToken());
+        }
+        stringTokenizer.nextToken();
+        long lastCity = 0;
+        for (int i = 1; i < city.length; i++) {
+            lastCity = city[i - 1];
+            if (lastCity < city[i]) {
+                city[i] = lastCity;
             }
         }
 
-        //한 도시씩 가다가 최소 가격인 도시가 나오면 나머지 도로 길이만큼 리터 구입하여 최종 가격 구하기
-        for (int i = 0; i < roadLength.length; i++) {
-            if (city[i] == min) {
-                for (int j = i; j < roadLength.length; j++) {
-                    sum += city[i] * roadLength[j];
-                }
-                break;
-            }
+        for (int i = 0; i < city.length; i++) {
             sum += city[i] * roadLength[i];
         }
-
         System.out.println(sum);
+
     }
 }

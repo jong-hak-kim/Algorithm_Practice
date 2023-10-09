@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -10,29 +12,21 @@ public class Main {
         StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
         int A = Integer.parseInt(stringTokenizer.nextToken());
         int B = Integer.parseInt(stringTokenizer.nextToken());
-        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        Set<Integer> set = new HashSet<>();
         stringTokenizer = new StringTokenizer(bufferedReader.readLine());
         for (int i = 0; i < A; i++) {
             int num = Integer.parseInt(stringTokenizer.nextToken());
-            hashMap.put(num, 0);
+            set.add(num);
         }
+        int count = 0;
         stringTokenizer = new StringTokenizer(bufferedReader.readLine());
         for (int i = 0; i < B; i++) {
             int num = Integer.parseInt(stringTokenizer.nextToken());
-            if (hashMap.containsKey(num)) {
-                hashMap.put(num, 1);
-                continue;
-            }
-            hashMap.put(num, 0);
-        }
-
-        int count = 0;
-        for (Integer num : hashMap.keySet()) {
-            if (hashMap.get(num) == 0) {
+            if (set.contains(num)) {
                 count++;
-                continue;
             }
+            set.add(num);
         }
-        System.out.println(count);
+        System.out.println(set.size() - count);
     }
 }

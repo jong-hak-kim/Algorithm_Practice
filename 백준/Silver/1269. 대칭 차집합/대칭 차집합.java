@@ -25,8 +25,7 @@ public class Main {
             if (set.contains(num)) {
                 count++;
             }
-            set.add(num);
         }
-        System.out.println(set.size() - count);
+        System.out.println(A + B - (count * 2));
     }
 }

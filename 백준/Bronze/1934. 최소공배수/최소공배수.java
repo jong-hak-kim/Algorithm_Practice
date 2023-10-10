@@ -19,9 +19,11 @@ public class Main {
     }
 
     public static int getGCD(int A, int B) {
-        if (A % B == 0) {
-            return B;
+        while (B != 0) {
+            int result = A % B;
+            A = B;
+            B = result;
         }
-        return getGCD(B, A % B);
+        return A;
     }
 }

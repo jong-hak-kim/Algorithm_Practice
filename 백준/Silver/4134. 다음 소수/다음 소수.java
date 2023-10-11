@@ -11,7 +11,7 @@ public class Main {
         for (int i = 0; i < T; i++) {
             long num = Long.parseLong(bufferedReader.readLine());
             BigInteger bi = new BigInteger(String.valueOf(num));
-            if (bi.isProbablePrime(10)) {
+            if (bi.isProbablePrime(20)) {
                 stringBuilder.append(num).append("\n");
             } else {
                 stringBuilder.append(bi.nextProbablePrime()).append("\n");

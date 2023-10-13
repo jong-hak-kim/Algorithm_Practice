@@ -13,18 +13,12 @@ public class Main {
         for (int i = 0; i < T; i++) {
             int count = 0;
             int N = Integer.parseInt(bufferedReader.readLine());
-            for (int j = 0; j < N; j++) {
-                if (!prime[j]) {
-                    if (!prime[N - j]) {
-                        count++;
-                    }
+            for (int j = 0; j * 2 <= N; j++) {
+                if (!prime[j] && !prime[N - j]) {
+                    count++;
                 }
             }
-            if (count % 2 == 1) {
-                stringBuilder.append(count / 2 + 1).append("\n");
-                continue;
-            }
-            stringBuilder.append(count / 2).append("\n");
+            stringBuilder.append(count).append("\n");
         }
         System.out.println(stringBuilder);
     }

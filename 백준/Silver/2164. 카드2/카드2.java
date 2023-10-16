@@ -11,7 +11,7 @@ public class Main {
         int result = 0;
         Deque<Integer> deque = new ArrayDeque<>();
 
-        // ArrayList에 카드 넣기
+        // ArrayDeque에 카드 넣기
         for (int i = 1; i < N + 1; i++) {
             deque.add(i);
         }

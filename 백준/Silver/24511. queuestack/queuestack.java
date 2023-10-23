@@ -25,10 +25,9 @@ public class Main {
         }
 
         int M = Integer.parseInt(bufferedReader.readLine());
-        int[] insertArray = new int[M];
         stringTokenizer = new StringTokenizer(bufferedReader.readLine());
         int insertNum = 0;
-        for (int i = 0; i < insertArray.length; i++) {
+        for (int i = 0; i < M; i++) {
             insertNum = Integer.parseInt(stringTokenizer.nextToken());
             arrayDeque.addFirst(insertNum);
             stringBuilder.append(arrayDeque.pollLast()).append(" ");

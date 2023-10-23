@@ -10,16 +10,14 @@ public class Main {
         int N = Integer.parseInt(bufferedReader.readLine());
         ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
         StringBuilder stringBuilder = new StringBuilder();
-        int[] array = new int[N];
-        StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-        for (int i = 0; i < N; i++) {
-            array[i] = Integer.parseInt(stringTokenizer.nextToken());
-        }
 
-        stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+        StringTokenizer typeStringTokenizer = new StringTokenizer(bufferedReader.readLine());
+        StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+
         for (int i = 0; i < N; i++) {
+            int type = Integer.parseInt(typeStringTokenizer.nextToken());
             int num = Integer.parseInt(stringTokenizer.nextToken());
-            if (array[i] == 0) {
+            if (type == 0) {
                 arrayDeque.add(num);
             }
         }

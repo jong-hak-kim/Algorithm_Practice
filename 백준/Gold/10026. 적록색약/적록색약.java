@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 public class Main {
     public static char[][] graph;
     public static boolean[][] visited;
-    public static boolean[][] blindVisited;
     public static int N;
     public static int count = 0;
     public static int blindCount = 0;
@@ -15,7 +14,6 @@ public class Main {
         N = Integer.parseInt(bufferedReader.readLine());
         graph = new char[N][N];
         visited = new boolean[N][N];
-        blindVisited = new boolean[N][N];
 
         for (int i = 0; i < N; i++) {
             String input = bufferedReader.readLine();
@@ -32,12 +30,20 @@ public class Main {
                 }
             }
         }
+        visited = new boolean[N][N];
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (graph[i][j] == 'G') {
+                    graph[i][j] = 'R';
+                }
+            }
+        }
 
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                if (!blindVisited[i][j]) {
+                if (!visited[i][j]) {
                     blindCount++;
-                    blindDfs(i, j, graph[i][j]);
+                    dfs(i, j, graph[i][j]);
                 }
             }
         }
@@ -57,25 +63,6 @@ public class Main {
             }
             if (graph[x][y] == color && !visited[x][y]) {
                 dfs(x, y, color);
-            }
-        }
-    }
-
-    public static void blindDfs(int startX, int startY, char color) {
-        blindVisited[startX][startY] = true;
-        int[] X = { 0, 0, -1, 1 };
-        int[] Y = { -1, 1, 0, 0 };
-        for (int i = 0; i < 4; i++) {
-            int x = startX + X[i];
-            int y = startY + Y[i];
-            if (x < 0 || x >= N || y < 0 || y >= N) {
-                continue;
-            }
-            if ((color == 'R' || color == 'G') && (graph[x][y] == 'R' || graph[x][y] == 'G') && !blindVisited[x][y]) {
-                blindDfs(x, y, color);
-            }
-            if (graph[x][y] == color && !blindVisited[x][y]) {
-                blindDfs(x, y, color);
             }
         }
     }

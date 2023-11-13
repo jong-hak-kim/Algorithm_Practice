@@ -7,10 +7,10 @@ public class Main {
     public static boolean[][] visited;
     public static int N;
     public static int count = 0;
-    public static int blindCount = 0;
 
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder stringBuilder = new StringBuilder();
         N = Integer.parseInt(bufferedReader.readLine());
         graph = new char[N][N];
         visited = new boolean[N][N];
@@ -30,6 +30,8 @@ public class Main {
                 }
             }
         }
+        stringBuilder.append(count).append(" ");
+        count = 0;
         visited = new boolean[N][N];
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
@@ -42,13 +44,13 @@ public class Main {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if (!visited[i][j]) {
-                    blindCount++;
+                    count++;
                     dfs(i, j, graph[i][j]);
                 }
             }
         }
-
-        System.out.println(count + " " + blindCount);
+        stringBuilder.append(count);
+        System.out.println(stringBuilder);
     }
 
     public static void dfs(int startX, int startY, char color) {

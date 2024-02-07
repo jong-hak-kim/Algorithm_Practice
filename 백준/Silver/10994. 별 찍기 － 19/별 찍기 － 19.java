@@ -24,12 +24,15 @@ public class Main {
         stars[centerX][centerY] = '*';
         makeStar(0, length);
 
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length; j++) {
-                System.out.print(stars[i][j]);
+                stringBuilder.append(stars[i][j]);
             }
-            System.out.println();
+            stringBuilder.append("\n");
         }
+
+        System.out.println(stringBuilder.toString());
     }
 
     static void makeStar(int start, int length) {

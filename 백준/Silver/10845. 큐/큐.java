@@ -15,7 +15,7 @@ public class Main {
             String command = stringTokenizer.nextToken();
             if(command.equals("push")){
                 int number = Integer.parseInt(stringTokenizer.nextToken());
-                deque.push(number);
+                deque.addLast(number);
                 continue;
             }
             if(command.equals("pop")){
@@ -23,7 +23,7 @@ public class Main {
                     stringBuilder.append("-1").append("\n");
                     continue;
                 }
-                stringBuilder.append(deque.pollLast()).append("\n");
+                stringBuilder.append(deque.pop()).append("\n");
                 continue;
             }
 
@@ -46,7 +46,7 @@ public class Main {
                     stringBuilder.append(-1).append("\n");
                     continue;
                 }
-                stringBuilder.append(deque.peekLast()).append("\n");
+                stringBuilder.append(deque.peekFirst()).append("\n");
                 continue;
             }
 
@@ -55,7 +55,7 @@ public class Main {
                     stringBuilder.append(-1).append("\n");
                     continue;
                 }
-                stringBuilder.append(deque.peekFirst()).append("\n");
+                stringBuilder.append(deque.peekLast()).append("\n");
             }
         }
 

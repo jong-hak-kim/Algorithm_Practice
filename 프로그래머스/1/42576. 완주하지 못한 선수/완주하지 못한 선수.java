@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 class Solution {
     public String solution(String[] participant, String[] completion) {
+        String answer = "";
        HashMap<String, Integer> players = new HashMap<>();
         for (String player : participant) {
             players.put(player, players.getOrDefault(player, 0) + 1);
@@ -15,14 +16,15 @@ class Solution {
 
 
         for (String complete : completion) {
-            if (players.containsKey(complete)) {
-                players.put(complete, players.get(complete) - 1);
-                if (players.get(complete) < 1) {
-                    players.remove(complete);
-                }
+            players.put(complete, players.get(complete) - 1);
+        }
+        
+        for (String leftPlayer : players.keySet()){
+            if(players.get(leftPlayer) != 0){
+                answer = leftPlayer;
             }
         }
-        return players.keySet().toString().replace("[", "").replace("]", "");
+        return answer;
         
     }
 }

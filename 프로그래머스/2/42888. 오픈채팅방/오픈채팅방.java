@@ -1,11 +1,12 @@
+// 메시지 해쉬맵 [명령어 / 메시지 내용]
 // 해쉬맵 [아이디 / 닉네임]
 // record 하나씩 분리
 // 명령어 분리
 
-// Enter 명령어인 항목은 해쉬맵에 입력
-// Change 명령어라면 해쉬맵 닉네임 변경
+// Enter와 Change 경우 (명령어 길이로 확인)
+    // Enter와 Change 명령어인 항목은 해쉬맵에 put
 
-// record 다시 순회하면서 명렁어와 아이디만 확인 후 결과 출력 
+// record 다시 순회하면서 메시지 해쉬맵에 맞는 메시지를 리스트에 저장
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,40 +14,29 @@ import java.util.ArrayList;
 
 class Solution {
     public String[] solution(String[] record) {
+        HashMap<String, String> msg = new HashMap<>();
+        msg.put("Enter", "님이 들어왔습니다.");
+        msg.put("Leave", "님이 나갔습니다.");
+            
         HashMap<String, String> users = new HashMap<>();
-        for (String logs : record) {
-            String[] log = logs.split(" ");
+        for (String cmds : record) {
+            String[] cmd = cmds.split(" ");
 
-
-            String command = log[0];
-            if (command.equals("Leave")) {
-                continue;
-            }
-            String userId = log[1];
-            String nickname = log[2];
-
-            if (command.equals("Enter")) {
-                users.put(userId, nickname);
-            } else if (command.equals("Change")) {
-                users.put(userId, nickname);
+            if (cmd.length == 3){
+                users.put(cmd[1], cmd[2]);
             }
         }
 
-        List<String> results = new ArrayList<>();
+        ArrayList<String> result = new ArrayList<>();
 
-        for (String logs : record) {
-            String[] log = logs.split(" ");
+        for (String cmds : record) {
+            String[] cmd = cmds.split(" ");
 
-            String command = log[0];
-            String userId = log[1];
-
-            if (command.equals("Enter")) {
-                results.add(users.get(userId) + "님이 들어왔습니다.");
-            } else if (command.equals("Leave")) {
-                results.add(users.get(userId) + "님이 나갔습니다.");
+            if(msg.containsKey(cmd[0])){
+                result.add(users.get(cmd[1]) + msg.get(cmd[0]));
             }
         }
 
-        return results.toArray(String[]::new);
+        return result.toArray(new String[0]);
     }
 }

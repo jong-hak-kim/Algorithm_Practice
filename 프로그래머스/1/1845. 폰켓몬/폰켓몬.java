@@ -1,5 +1,5 @@
 //중복 제거
-//
+
 import java.util.HashSet;
 class Solution {
     public int solution(int[] nums) {
@@ -9,11 +9,7 @@ class Solution {
             set.add(num);
         }
         
-        if(set.size() < size){
-            return set.size();
-        } else {
-            return size;
-        }
+        return Math.min(size, set.size());
         
     }
 }

@@ -10,42 +10,36 @@
 // 그 외
     // 그때의 위치값 / 인원수 + 1 ==> 말한 횟수
 
+//답변 예시
+//*탈락자 번호는 '인덱스 + 1'을 하면 구할 수 있다.
+//*몇번 말하였는지 구할려면 '인덱스 / N + 1'을 하면 구할 수 있다.
+//HashSet 사용
+//처음에는 첫 번째 사람이 말하는 첫 번째 글자로 초기화 해놓기
+//루프를 돌면서
+    //이미 사용한 단어이거나 첫 글자가 이전 단어와 일치하지 않으면
+        //탈락한 사람의 번호의 차례 반환
+
 import java.util.HashSet;
 
 class Solution {
     static int count = 0;
-    static boolean isDuplicate;
     static String beforeWord;
     
     public int[] solution(int n, String[] words) {
-        HashSet<String> set = new HashSet<>();
-        for(String word : words){
-            count++;
-            if(!set.isEmpty() && (set.contains(word) || 
-               beforeWord.charAt(beforeWord.length() - 1) != word.charAt(0) ||
-               word.length() == 1)){
-                isDuplicate = true;
-                break;
+        HashSet<String> usedWords = new HashSet<>();
+        
+        char prevWord = words[0].charAt(0);
+        
+        for (int i = 0; i < words.length; i++){
+            if(usedWords.contains(words[i]) || words[i].charAt(0) != prevWord) {
+                return new int[] {(i % n) + 1, (i / n) + 1};
             }
-            set.add(word);
-            beforeWord = word;
+            
+            usedWords.add(words[i]);
+            prevWord = words[i].charAt(words[i].length() - 1);
         }
         
-        if(!isDuplicate){
-            return new int[]{0, 0};
-        }
-        
-        int speaker = 0;
-        int speakCount = 0;
-        
-        if(count % n == 0){
-            speaker = n;
-            speakCount = count / n;
-        } else {
-            speaker = count % n;
-            speakCount = (count / n) + 1;
-        }
-        
-        return new int[] {speaker, speakCount};
+        return new int[]{0, 0};
+
     }
 }
